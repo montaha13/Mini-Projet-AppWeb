@@ -1,0 +1,13 @@
+{
+  "name": "recommandation-root",
+  "version": "1.0.0",
+  "description": "Root runner for Recommendation and Booking services",
+  "scripts": {
+    "start": "npm start --prefix recommendation-service",
+    "start:all": "npm start --prefix recommendation-service & npm start --prefix booking-service",
+    "install:all": "npm install --prefix recommendation-service && npm install --prefix booking-service"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

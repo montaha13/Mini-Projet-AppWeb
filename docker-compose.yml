@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: fablab-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  recommendation-service:
+    build: ./recommendation-service
+    container_name: recommendation-service
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+      - MONGODB_URI=mongodb://mongodb:27017/recommendation
+    depends_on:
+      - mongodb
+
+  booking-service:
+    build: ./booking-service
+    container_name: booking-service
+    ports:
+      - "3004:3004"
+    environment:
+      - PORT=3004
+      - RECOMMENDATION_SERVICE_URL=http://recommendation-service:3003/api/recommendations
+    depends_on:
+      - recommendation-service
+
+volumes:
+  mongodb_data:
